@@ -3,6 +3,7 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 
 import HomePage from './components/homepage/homepage.component';
+import ShopPage from './components/shop/shop.component';
 
 import './App.css';
 import './components/homepage/component.style.scss';
@@ -24,8 +25,7 @@ function App() {
      <div>
        <Switch>
          <Route exact path="/" component={HomePage} />
-         <Route path="/hats" component={HatsPage} />
-         <Route path="/jackets" component={JacketsPage} />
+         <Route path="/shop" component={ShopPage} />
        </Switch>
      </div>
   );
