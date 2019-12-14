@@ -4,6 +4,8 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import HomePage from './components/homepage/homepage.component';
 import ShopPage from './components/shop/shop.component';
+import Header from './components/header/header.component';
+import Footer from './components/footer/footer.component';
 
 import './App.css';
 import './components/homepage/component.style.scss';
@@ -22,12 +24,16 @@ const HatsPage = () => (
 );
 function App() {
   return (
-     <div>
+    <>
+     <div className="container">
+     <Header />
        <Switch>
          <Route exact path="/" component={HomePage} />
          <Route path="/shop" component={ShopPage} />
        </Switch>
      </div>
+       <Footer />
+    </>
   );
 }
 
