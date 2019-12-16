@@ -4,37 +4,55 @@ import { Switch, Route, Link } from 'react-router-dom';
 
 import HomePage from './components/homepage/homepage.component';
 import ShopPage from './components/shop/shop.component';
+import SignInAndRegister from './components/sign-in-and-register/sign-in-and-register.component';
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
+
+import { auth } from './firebase/firebase.utils';
 
 import './App.css';
 import './components/homepage/component.style.scss';
 
-const JacketsPage = () => (
-  <div>
-       <h1>Awesome new Featured jackets</h1>
-       <h3>Shop the hottest trends today</h3>
-  </div>
-);
+class App extends React.Component{
+   constructor() {
+     super();
 
-const HatsPage = () => (
-   <div>
-     <h3> this is the hats page werer all of our hats that are currently availbialbe will be displayed</h3>
-   </div>
-);
-function App() {
+
+    this.state = {
+      currentUser: null
+     }
+   }
+
+
+   unsbscribeFromAuth = null;
+
+   componentDidMount () {
+     this.unsbscribeFromAuth = auth.onAuthStateChanged(user => {
+       this.setState({currentUser: user });
+
+       console.log(user);
+     });
+   }
+
+   componentWillUnmount() {
+     this.unsbscribeFromAuth();
+   }
+
+  render(){
   return (
     <>
      <div className="container">
-     <Header />
+     <Header currentUser={this.state.currentUser} />
        <Switch>
          <Route exact path="/" component={HomePage} />
          <Route path="/shop" component={ShopPage} />
+         <Route path="/signin" component={SignInAndRegister} />
        </Switch>
      </div>
        <Footer />
     </>
   );
+  }
 }
 
 export default App;
