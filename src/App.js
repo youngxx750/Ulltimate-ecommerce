@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, } from 'react-router-dom';
 
 
 import HomePage from './components/homepage/homepage.component';
@@ -8,7 +8,7 @@ import SignInAndRegister from './components/sign-in-and-register/sign-in-and-reg
 import Header from './components/header/header.component';
 import Footer from './components/footer/footer.component';
 
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 import './App.css';
 import './components/homepage/component.style.scss';
@@ -27,10 +27,25 @@ class App extends React.Component{
    unsbscribeFromAuth = null;
 
    componentDidMount () {
-     this.unsbscribeFromAuth = auth.onAuthStateChanged(user => {
-       this.setState({currentUser: user });
+     this.unsbscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+       if (userAuth){
+         const userRef = await createUserProfileDocument(userAuth);
 
-       console.log(user);
+         userRef.onSnapshot(snapShot => {
+           this.setState({
+             currentUser: {
+
+              id: snapShot.id,
+              ...snapShot.data()
+
+             }
+           });
+
+
+             console.log(this.state);
+           });
+         }
+       this.setState({currentUser: userAuth});
      });
    }
 
