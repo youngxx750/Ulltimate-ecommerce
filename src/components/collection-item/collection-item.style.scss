@@ -5,7 +5,7 @@
     height: 350px;
     align-items: center;
     border: 1px solid #f4f4f4;
-}
+    position: relative;
 
 .image {
    width: 100%;
@@ -13,6 +13,27 @@
    background-size: cover;
    background-position: center;
    margin-bottom: 5px;
+}
+
+.custom-button {
+    position: absolute;
+    width: 80%;
+    opacity: 0.7;
+    top: 255px;
+    display: none;
+
+}
+
+&:hover {
+    .image {
+        opacity: 0.8;
+    }
+    .custom-button{
+        opacity: 0.85;
+        display: flex;
+
+    }
+
 }
 
 .collection-footer {
@@ -28,6 +49,7 @@
 .name{
     width: 90%;
     margin-bottom: 15px;
+}
 }
 
 
